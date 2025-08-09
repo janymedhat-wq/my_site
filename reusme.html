@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medhat Ullah's Resume</title>
+    <!-- Import Google Fonts: Cinzel for headings and IBM Plex Mono for body -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <style>
+        /* Base styles and variables */
+        :root {
+            --primary-font: 'Cinzel', serif;
+            --secondary-font: 'IBM Plex Mono', monospace;
+            --text-color: #1a1a1a;
+            --secondary-text-color: #6b7280;
+            --background-color: #ffffff;
+            --accent-color: #000000;
+            --hover-color: #ffffff;
+            --hover-bg-color: #000000;
+        }
+
+        /* Basic reset and typography */
+        body {
+            font-family: var(--secondary-font);
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            cursor: none;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--primary-font);
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* Custom Mouse Cursor */
+        .cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: rgba(107, 114, 128, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, transform 0.1s ease;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor.active {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main content layout */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 2rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        
+        .skills-section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            list-style-type: none;
+            padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .skills-list li {
+            background-color: #f3f4f6;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-color);
+            position: relative; /* Needed for pseudo-element */
+            cursor: pointer;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+        
+        /* Hover effect for skills */
+        .skills-list li:hover {
+            color: var(--accent-color);
+            background-color: transparent;
+        }
+
+        /* Underline effect for skills on hover */
+        .skills-list li::after {
+            content: '';
+            position: absolute;
+            left: 50%; /* Center the underline */
+            bottom: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+        
+        .skills-list li:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+
+        /* Courses Section */
+        .courses-section {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .courses-section h2 {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .courses-list {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .course-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .course-item-logo {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f3f4f6;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .course-item-logo.mit {
+            background-color: #a51d1d;
+        }
+        
+        .course-item-logo.mit svg {
+            fill: #ffffff;
+        }
+
+        .course-item-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .course-info {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .course-info h3 {
+            font-size: 1.25rem;
+            margin: 0;
+            position: relative;
+            display: inline-block; /* Essential for pseudo-element positioning */
+        }
+
+        .course-info p {
+            font-family: var(--secondary-font);
+            font-size: 1rem;
+            color: var(--secondary-text-color);
+            margin: 0;
+            position: relative;
+            display: inline-block; /* Essential for pseudo-element positioning */
+        }
+
+        /* Underline effect for courses on hover */
+        .course-info h3::after,
+        .course-info p::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px; /* Adjust as needed */
+            width: 0;
+            height: 1px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        .course-item:hover .course-info h3::after,
+        .course-item:hover .course-info p::after {
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 1.5rem 0;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--secondary-text-color);
+            border-top: 1px solid #e5e7eb;
+        }
+
+        /* Responsive adjustments for mobile */
+        @media (max-width: 768px) {
+            .skills-section h2, .courses-section h2 {
+                font-size: 2.5rem;
+            }
+            .course-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <div class="container">
+        <main>
+            <!-- Skills Section -->
+            <section class="skills-section">
+                <h2>Technical Skills</h2>
+                <ul class="skills-list">
+                    <li>Applied CFD</li>
+                    <li>Deep Learning</li>
+                    <li>Self-Driving Car Engineering</li>
+                    <li>Machine Learning</li>
+                    <li>Turbulence Modeling</li>
+                    <li>C++</li>
+                    <li>GPU programming</li>
+                    <li>Computational Plasma physics</li>
+                    <li>Theory-Trained Neural Nets</li>
+                    <li>Computer Vision Engineering</li>
+                </ul>
+            </section>
+
+            <!-- Courses Section -->
+            <section class="courses-section">
+                <h2>Courses & Certifications</h2>
+                <ul class="courses-list">
+                    <li class="course-item">
+                        <div class="course-item-logo siemens">
+                            <img src="siemens.jpg" alt="Siemens Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Applied Computational Fluid dynamics</h3>
+                            <p>siemens.com</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo mit">
+                             <div class="course-item-logo">
+                            <img src="mit.jpg" alt="Hong Kong University Logo Placeholder">
+                        </div>
+                        </div>
+                        <div class="course-info">
+                            <h3>Relativistic Quantum Mechanics</h3>
+                            <p>MIT</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="hku.png" alt="Hong Kong University Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Software Engineering: Implementation and Testing</h3>
+                            <p>Hong Kong University</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="boulder.png" alt="Colorado Boulder Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Software Design as an Abstraction</h3>
+                            <p>Colorado Boulder</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="mathworks.gif" alt="Mathworks Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Image processing for Engineers and Scientist</h3>
+                            <p>Mathworks</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="gAI.jpg" alt="Google Quantum AI Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Hands-on quantum error correction with Google Quantum AI</h3>
+                            <p>Google Quantum AI</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="nptel.png" alt="Institution Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Introduction to Computational Science and Engineering</h3>
+                            <p>Nptel</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="miit.png" alt="Institution Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Derivatives Markets: Advanced Modeling and Strategies</h3>
+                            <p>Massachusetts Institute of Technology</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="coursera.png" alt="Institution Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Simple Linear Regression for the Absolute Beginner</h3>
+                            <p>Coursera</p>
+                        </div>
+                    </li>
+                    <li class="course-item">
+                        <div class="course-item-logo">
+                            <img src="ubc.png" alt="Institution Logo Placeholder">
+                        </div>
+                        <div class="course-info">
+                            <h3>Introduction to Quantum Mechanics</h3>
+                            <p>University of British Columbia</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Medhat :P</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript for the custom cursor -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const interactiveElements = document.querySelectorAll('.interactive-element');
+
+            // Update cursor position
+            document.addEventListener('mousemove', e => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
+
+            // Handle hover states for interactive elements
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('active');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
